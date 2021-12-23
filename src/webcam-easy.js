@@ -10,11 +10,10 @@ export default class Webcam {
         this._canvasElement = canvasElement;
         this._snapSoundElement = snapSoundElement;
         this._horizontalFlipFactor = 1;
-        const self = this;
 
-        window.addEventListener("resize", function () {
-            self._webcamElement.width = screen.availWidth;
-            self._webcamElement.height = screen.availHeight;
+        window.addEventListener("resize", () => {
+            this._webcamElement.width = screen.availWidth;
+            this._webcamElement.height = screen.availHeight;
         }, false);
     }
 
@@ -55,6 +54,7 @@ export default class Webcam {
     getMediaConstraints() {
         /* Try to get a media stream that takes at least 1080p pictures */
         const videoConstraints = {height: {min: 1080}};
+
         if (this._selectedDeviceId === '') {
             videoConstraints.facingMode = this._facingMode;
         } else {
@@ -119,12 +119,11 @@ export default class Webcam {
     /* Start streaming webcam to video element */
     stream() {
         return navigator.mediaDevices.getUserMedia(this.getMediaConstraints()).then(stream => {
-            const self = this;
             this._streamList.push(stream);
             this._webcamElement.srcObject = stream;
-            this._webcamElement.onloadedmetadata = function() {
-                self.snapHeight = this.videoHeight;
-                self.snapWidth = this.videoWidth;
+            this._webcamElement.onloadedmetadata = () => {
+                this.snapHeight = this._webcamElement.videoHeight;
+                this.snapWidth = this._webcamElement.videoWidth;
             }
             if (this._facingMode === 'user' && !this._isStopped) this._horizontalFlipFactor = -1;
             this.calibrateWebCamElement();
