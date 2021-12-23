@@ -26,7 +26,7 @@ $("#webcam-switch").change(function() {
 });
 
 $('#cameraFlip').click(function() {
-	webcam.flip();
+	webcam.switchCamera();
 	webcam.start();
 });
 

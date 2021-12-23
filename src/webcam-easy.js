@@ -57,7 +57,7 @@ export default class Webcam {
     /* Select camera based on facingMode */
     selectCamera() {
         for (let webcam of this._webcamList) {
-            if ((this._facingMode === 'user' && webcam.label.toLowerCase().includes('front')) || (this._facingMode === 'enviroment' && webcam.label.toLowerCase().includes('back'))) {
+            if ((this._facingMode === 'user' && webcam.label.toLowerCase().includes('front')) || (this._facingMode === 'environment' && webcam.label.toLowerCase().includes('back'))) {
                 this._selectedDeviceId = webcam.deviceId;
                 break;
             }
@@ -67,16 +67,16 @@ export default class Webcam {
     /* Horizontally flip the current streaming camera */
     flip() {
         this._horizontalFlipFactor *= -1;
-        this.caliberateWebCamElement();
+        this.calibrateWebCamElement();
     }
 
-    caliberateWebCamElement() {
+    calibrateWebCamElement() {
         this._webcamElement.style.transform = this._horizontalFlipFactor === -1 ? `scale(-1, 1)` : '';
     }
 
     /* Change Facing mode and selected camera */
     switchCamera() {
-        this._facingMode = (this._facingMode === 'user') ? 'enviroment' : 'user';
+        this._facingMode = this._facingMode === 'user' ? 'environment' : 'user';
         this._webcamElement.style.transform = "";
         this.selectCamera();
     }
@@ -110,7 +110,7 @@ export default class Webcam {
             this._streamList.push(stream);
             this._webcamElement.srcObject = stream;
             if (this._facingMode === 'user' && !this._isStopped) this._horizontalFlipFactor = -1;
-            this.caliberateWebCamElement();
+            this.calibrateWebCamElement();
             delete this._isStopped;
             this._webcamElement.play();
             return this._facingMode;
@@ -135,7 +135,7 @@ export default class Webcam {
         this._canvasElement.height = this._webcamElement.scrollHeight;
         this._canvasElement.width = this._webcamElement.scrollWidth;
         const context = this._canvasElement.getContext('2d');
-        if(this._facingMode === 'user'){
+        if(this._horizontalFlipFactor === -1){
             context.translate(this._canvasElement.width, 0);
             context.scale(-1, 1);
         }
