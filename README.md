@@ -1,4 +1,31 @@
+# Fork webcam-easy
+
+I made a fork which applies the PRs of the main repo, since it was unmaintained.
+
+
+## Changelist:
+
+- Merge pr [Snap bug fix and a few enhancements](https://github.com/bensonruan/webcam-easy/pull/2)
+  - Rename: `flip` method to `switchCamera`
+  - Add: `flip` method which flips the screen horizontal
+  - Fix: Duplicate calls to navigator.getUserMedia
+  - Fix: Unnecessary async calls
+- Merge pr [Removed the need for a canvas element to use the snap function](https://github.com/bensonruan/webcam-easy/pull/9)
+  - Instead of throwing an error when not provided with a canvas element, creates one instead
+  - Snap now takes an argument for the format of the image, defaults to `image/png`
+- Merge pr [Allow to get high quality pictures](https://github.com/bensonruan/webcam-easy/pull/29)
+  - Change quality of the picture was taken from the video
+    html component to the one of the stream
+- Bump dependencies
+- Update demo to reflect changes
+- Fix issues caused by typos: such as `enviroment` to `environment` and `caliberateWebCamElement()` to `calibrateWebCamElement()`
+
+*Note all links below have not been modified*
+
 # Webcam Easy JS
+
+
+
 This is a javascript library for accessing webcam stream and taking photos.
 
 You can easily add it as a module to your own app.
