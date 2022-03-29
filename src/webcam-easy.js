@@ -53,7 +53,7 @@ export default class Webcam {
     /* Get media constraints */
     getMediaConstraints() {
         /* Try to get a media stream that takes at least 1080p pictures */
-        const videoConstraints = {height: {min: 1080}};
+        const videoConstraints = {};
 
         if (this._selectedDeviceId === '') {
             videoConstraints.facingMode = this._facingMode;
